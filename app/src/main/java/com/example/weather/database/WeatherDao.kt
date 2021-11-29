@@ -1,6 +1,9 @@
 package com.example.weather.database
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -12,12 +15,9 @@ interface WeatherDao {
     @Insert(entity = LastWeatherInfo::class, onConflict = OnConflictStrategy.REPLACE)
     fun insert(stopwatches: LastWeatherInfo?)
 
-    @Update
-    fun update(stopwatches: LastWeatherInfo?)
+    @Query("SELECT * FROM DBForecast")
+    fun getForecast(): Flow<List<DBForecast>>
 
-    @Delete
-    fun delete(stopwatches: LastWeatherInfo?)
-
-    @Query("SELECT * FROM LastWeatherInfo WHERE id = :id")
-    fun getLastWeatherInfo(id: Int): LastWeatherInfo
+    @Insert(entity = DBForecast::class, onConflict = OnConflictStrategy.REPLACE)
+    fun insert(stopwatches: DBForecast?)
 }

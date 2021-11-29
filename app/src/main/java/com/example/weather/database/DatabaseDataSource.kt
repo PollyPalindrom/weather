@@ -1,13 +1,19 @@
 package com.example.weather.database
 
 import android.content.Context
+import androidx.room.Room
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class DatabaseDataSource @Inject constructor(@ApplicationContext private val context: Context) {
-    private val database by lazy { AppDatabase.getInstance(context) }
-    val weatherDao = database.weatherDao()
+private const val DATABASE_NAME = "LastWeatherInfo"
+
+class DatabaseDataSource @Inject constructor(@ApplicationContext context: Context) {
+    private val database by lazy {
+        Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+            .build()
+    }
+    private val weatherDao = database.weatherDao()
 
     fun getAll(): Flow<MutableList<LastWeatherInfo>> {
         return weatherDao.getAll()
@@ -17,15 +23,13 @@ class DatabaseDataSource @Inject constructor(@ApplicationContext private val con
         weatherDao.insert(weather)
     }
 
-    fun delete(weather: LastWeatherInfo) {
-        weatherDao.delete(weather)
+    fun getForecast(): Flow<List<DBForecast>> {
+        return weatherDao.getForecast()
     }
 
-    fun update(weather: LastWeatherInfo) {
-        weatherDao.update(weather)
-    }
-
-    fun getLastWeatherInfo(id: Int): LastWeatherInfo {
-        return weatherDao.getLastWeatherInfo(id)
+    fun insertForecast(forecast: List<DBForecast>) {
+        forecast.forEach {
+            weatherDao.insert(it)
+        }
     }
 }

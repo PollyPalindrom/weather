@@ -3,21 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/todayWeatherFragment">
+    app:startDestination="@id/entryFragment">
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.weather.MainActivity"
-        android:label="main_activity"
-        tools:layout="@layout/main_activity" />
+    <fragment
+        android:id="@+id/entryFragment"
+        android:name="com.example.weather.entryFragment.EntryFragment"
+        android:label="fragment_entry"
+        tools:layout="@layout/fragment_entry" />
+    <fragment
+        android:id="@+id/errorFragment"
+        android:name="com.example.weather.errorFragment.ErrorFragment"
+        android:label="fragment_error"
+        tools:layout="@layout/fragment_error">
+        <action
+            android:id="@+id/action_errorFragment_pop_including_entryFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.weather.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_pop_including_entryFragment"
+            app:popUpTo="@id/entryFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/todayWeatherFragment"
         android:name="com.example.weather.CurrentWeather.TodayWeatherFragment"
         android:label="today_weather_fragment"
-        tools:layout="@layout/today_weather_fragment" />
+        tools:layout="@layout/today_weather_fragment">
+        <action
+            android:id="@+id/action_todayWeatherFragment_pop_including_entryFragment"
+            app:popUpTo="@id/entryFragment"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
     <fragment
         android:id="@+id/weatherForecastFragment"
         android:name="com.example.weather.WeatherForecast.WeatherForecastFragment"
         android:label="weather_forecast_fragment"
-        tools:layout="@layout/weather_forecast_fragment" />
+        tools:layout="@layout/weather_forecast_fragment">
+        <action
+            android:id="@+id/action_weatherForecastFragment_pop_including_entryFragment"
+            app:popUpTo="@id/entryFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

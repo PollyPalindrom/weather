@@ -1,7 +1,6 @@
 package com.example.weather.CurrentWeather
 
-import android.Manifest
-import android.content.pm.PackageManager
+import android.annotation.SuppressLint
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
@@ -9,8 +8,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -26,8 +25,8 @@ import kotlinx.coroutines.launch
 class TodayWeatherFragment : Fragment(), LocationListener {
 
     private lateinit var binding: TodayWeatherFragmentBinding
-
     private val viewModel by viewModels<TodayWeatherViewModel>()
+    private var isEmpty = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,51 +38,66 @@ class TodayWeatherFragment : Fragment(), LocationListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getLocation()
+        println(1)
+        viewModel.check()
         lifecycleScope.launch {
-            viewModel.address.collect {
-                binding.region.text = it
+            viewModel.connection.collect {
+                if (!it) {
+                    Toast.makeText(
+                        requireContext(),
+                        "There is no internet connection",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else getLocation()
             }
         }
+        println(2)
         lifecycleScope.launch {
             viewModel.current.collect {
-                binding.humidityValue.text = it.main.humidity.toString()
-                binding.pressureValue.text = it.main.pressure.toString()
-                binding.windValue.text = it.wind.speed.toString()
+                if (it.isNotEmpty()) {
+                    binding.humidityValue.text = it[0].humidity
+                    binding.pressureValue.text = it[0].pressure
+                    binding.windValue.text = it[0].speed
+                    binding.region.text = it[0].region
+                    isEmpty = false
+                    println(it.size)
+                    println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                }
             }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(requireActivity(),
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    requireActivity().finish()
+                }
+            })
     }
 
     override fun onLocationChanged(p0: Location) {
         getAddress(p0.latitude, p0.longitude)
     }
 
-    private fun getLocation() {
-        if ((ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED)
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                2
-            )
-        }
-        LocationServices.getFusedLocationProviderClient(requireContext()).getCurrentLocation(
+    @SuppressLint("MissingPermission")
+    fun getLocation() {
+        LocationServices.getFusedLocationProviderClient(context).getCurrentLocation(
             LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY,
             CancellationTokenSource().token
         ).addOnSuccessListener {
+            println("????????????????????????????????????")
             getAddress(it.latitude, it.longitude)
         }
     }
 
-    override fun onProviderDisabled(provider: String) {}
 
-    private fun getAddress(lat: Double, lng: Double) {
-        val geocoder = Geocoder(requireContext())
-        val list = geocoder.getFromLocation(lat, lng, 1)
-        viewModel.setAddress(list[0].locality + ", " + list[0].countryName)
-        viewModel.getData(list[0].latitude.toString(), list[0].longitude.toString())
+    fun getAddress(lat: Double, lon: Double) {
+        println("1111111111111111111111111111111111111111111111111111")
+        val geocoder = Geocoder(context)
+        val list = geocoder.getFromLocation(lat, lon, 1)
+        viewModel.getData(
+            lat, lon, list[0].locality + ", " + list[0].countryName,
+            isEmpty
+        )
     }
+
+    override fun onProviderDisabled(provider: String) {}
 }

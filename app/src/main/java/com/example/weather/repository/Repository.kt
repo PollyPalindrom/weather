@@ -1,6 +1,8 @@
 package com.example.weather.repository
 
+import com.example.weather.ConnectionManager
 import com.example.weather.ForecastEntity.FullForecast
+import com.example.weather.database.DBForecast
 import com.example.weather.database.DatabaseDataSource
 import com.example.weather.database.LastWeatherInfo
 import com.example.weather.network.NetworkDataSource
@@ -10,7 +12,8 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(
     private val networkDataSource: NetworkDataSource,
-    private val databaseDataSource: DatabaseDataSource
+    private val databaseDataSource: DatabaseDataSource,
+    private val connectionManager: ConnectionManager
 ) {
     suspend fun getForecast(lat: String, lon: String): FullForecast =
         networkDataSource.getForecast(lat, lon)
@@ -26,15 +29,16 @@ class Repository @Inject constructor(
         databaseDataSource.insert(weather)
     }
 
-    fun delete(weather: LastWeatherInfo) {
-        databaseDataSource.delete(weather)
+    fun getForecast(): Flow<List<DBForecast>> {
+        return databaseDataSource.getForecast()
     }
 
-    fun update(weather: LastWeatherInfo) {
-        databaseDataSource.update(weather)
+    fun insertForecast(list: List<DBForecast>) {
+        databaseDataSource.insertForecast(list)
     }
 
-    fun getBook(id: Int): LastWeatherInfo {
-        return databaseDataSource.getLastWeatherInfo(id)
+    fun checkConnection(): Boolean {
+        return connectionManager.checkForInternet()
     }
+
 }

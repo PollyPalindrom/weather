@@ -8,7 +8,7 @@ sealed class RecyclerItem {
     data class Forecast(
         var dt_txt: String,
         var description: String,
-        var icon:String,
-        var temperature:Double
+        var icon: String,
+        var temperature: Double
     ) : RecyclerItem()
 }

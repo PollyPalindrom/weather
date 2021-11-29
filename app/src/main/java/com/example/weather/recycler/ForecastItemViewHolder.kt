@@ -2,9 +2,9 @@ package com.example.weather.recycler
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.example.weather.databinding.ForecastItemBinding
 import com.example.weather.R
 import com.example.weather.databinding.DateItemBinding
+import com.example.weather.databinding.ForecastItemBinding
 
 sealed class ForecastItemViewHolder(
     private val binding: ViewBinding

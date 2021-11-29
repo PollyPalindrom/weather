@@ -4,9 +4,13 @@
     <item
         android:id="@+id/id1"
         android:icon="@mipmap/ic_launcher_round"
-        android:title="1" />
+        android:title="@string/_1" />
     <item
         android:id="@+id/id2"
         android:icon="@mipmap/ic_launcher_round"
-        android:title="2" />
+        android:title="@string/_2" />
+    <item
+        android:id="@+id/id3"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/_3" />
 </menu>
