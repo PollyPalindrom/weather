@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weather.ForecastParser
 import com.example.weather.repository.Repository
+import com.example.weather.use_cases.ForecastUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,22 +15,27 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WeatherForecastViewModel @Inject constructor(private val repository: Repository) :
+class WeatherForecastViewModel @Inject constructor(private val forecastUseCase: ForecastUseCase) :
     ViewModel(), LocationListener {
 
-    var currentForecast = repository.getForecast()
+    var currentForecast = forecastUseCase.getForecast()
     val connection = MutableStateFlow(false)
 
     fun setData(lat: Double, lon: Double, isEmpty: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             val weather =
-                repository.getForecast(lat.toString(), lon.toString())
+                forecastUseCase.getForecast(lat.toString(), lon.toString())
             val forecastParser = ForecastParser()
             if (!isEmpty) {
                 val lastWeather = currentForecast.toList()[0]
-                repository.insertForecast(forecastParser.updateForecast(lastWeather, weather.list))
+                forecastUseCase.insertForecast(
+                    forecastParser.updateForecast(
+                        lastWeather,
+                        weather.list
+                    )
+                )
             } else {
-                repository.insertForecast(forecastParser.formForecastForDB(weather.list))
+                forecastUseCase.insertForecast(forecastParser.formForecastForDB(weather.list))
             }
         }
     }
@@ -41,7 +47,7 @@ class WeatherForecastViewModel @Inject constructor(private val repository: Repos
     override fun onProviderDisabled(provider: String) {}
 
     fun check() {
-        connection.value = repository.checkConnection()
+        connection.value = forecastUseCase.checkConnection()
         println(connection.value)
     }
 }
