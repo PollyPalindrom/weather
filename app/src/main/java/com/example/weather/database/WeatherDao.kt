@@ -1,9 +1,6 @@
 package com.example.weather.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -11,6 +8,9 @@ interface WeatherDao {
 
     @Query("SELECT * FROM LastWeatherInfo")
     fun getAll(): Flow<MutableList<LastWeatherInfo>>
+
+    @Query("SELECT * FROM LastWeatherInfo")
+    fun getAllList(): List<LastWeatherInfo>
 
     @Insert(entity = LastWeatherInfo::class, onConflict = OnConflictStrategy.REPLACE)
     fun insert(stopwatches: LastWeatherInfo?)
@@ -20,4 +20,17 @@ interface WeatherDao {
 
     @Insert(entity = DBForecast::class, onConflict = OnConflictStrategy.REPLACE)
     fun insert(stopwatches: DBForecast?)
+
+    @Query("UPDATE LastWeatherInfo SET region=:region, speed=:speed, humidity=:humidity,pressure=:pressure, temperature=:temperature WHERE id=:id")
+    fun update(
+        region: String,
+        speed: String,
+        humidity: String,
+        pressure: String,
+        temperature: String,
+        id: Int
+    )
+
+    @Update
+    fun update(stopwatches: DBForecast?)
 }

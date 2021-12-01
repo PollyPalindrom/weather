@@ -8,7 +8,8 @@ class LastWeatherInfo(
     var region: String,
     var speed: String,
     var humidity: String,
-    var pressure: String
+    var pressure: String,
+    var temperature: String
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

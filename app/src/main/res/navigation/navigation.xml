@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/entryFragment"
-        android:name="com.example.weather.entryFragment.EntryFragment"
+        android:name="com.example.weather.presentation.entry_fragment.EntryFragment"
         android:label="fragment_entry"
         tools:layout="@layout/fragment_entry" />
     <fragment
         android:id="@+id/errorFragment"
-        android:name="com.example.weather.errorFragment.ErrorFragment"
+        android:name="com.example.weather.presentation.error_fragment.ErrorFragment"
         android:label="fragment_error"
         tools:layout="@layout/fragment_error">
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.weather.SettingsFragment"
+        android:name="com.example.weather.presentation.settings_fargment.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings">
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/todayWeatherFragment"
-        android:name="com.example.weather.CurrentWeather.TodayWeatherFragment"
+        android:name="com.example.weather.presentation.current_weather.TodayWeatherFragment"
         android:label="today_weather_fragment"
         tools:layout="@layout/today_weather_fragment">
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/weatherForecastFragment"
-        android:name="com.example.weather.WeatherForecast.WeatherForecastFragment"
+        android:name="com.example.weather.presentation.weather_forecast.WeatherForecastFragment"
         android:label="weather_forecast_fragment"
         tools:layout="@layout/weather_forecast_fragment">
         <action

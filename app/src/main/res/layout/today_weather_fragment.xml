@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CurrentWeather.TodayWeatherFragment">
+    tools:context=".presentation.current_weather.TodayWeatherFragment">
 
     <ImageView
         android:id="@+id/todayWeather"
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:text="value"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@id/direction"
+        app:layout_constraintBottom_toTopOf="@id/temperature"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toRightOf="@id/humidityValue"
         app:layout_constraintRight_toRightOf="parent"
@@ -94,7 +94,7 @@
         android:src="@drawable/wind"
         app:layout_constraintBottom_toTopOf="@id/windValue"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/direction"
+        app:layout_constraintRight_toLeftOf="@id/temperature"
         app:layout_constraintTop_toBottomOf="@id/humidityValue" />
 
     <TextView
@@ -105,21 +105,21 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@id/delimiter2"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/directionValue"
+        app:layout_constraintRight_toLeftOf="@id/temperatureValue"
         app:layout_constraintTop_toBottomOf="@id/wind" />
 
     <ImageView
-        android:id="@+id/direction"
+        android:id="@+id/temperature"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/direction"
-        app:layout_constraintBottom_toTopOf="@id/directionValue"
+        android:src="@drawable/temperature"
+        app:layout_constraintBottom_toTopOf="@id/temperatureValue"
         app:layout_constraintLeft_toRightOf="@id/wind"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pressureValue" />
 
     <TextView
-        android:id="@+id/directionValue"
+        android:id="@+id/temperatureValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="value"
@@ -127,7 +127,7 @@
         app:layout_constraintBottom_toTopOf="@id/delimiter2"
         app:layout_constraintLeft_toRightOf="@id/windValue"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/direction" />
+        app:layout_constraintTop_toBottomOf="@id/temperature" />
 
     <TextView
         android:id="@+id/delimiter2"
