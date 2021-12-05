@@ -14,6 +14,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenStarted
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weather.common.CurrentLocationManager
 import com.example.weather.common.ForecastParser
@@ -76,6 +77,15 @@ class WeatherForecastFragment : Fragment(), CurrentLocationListener {
                 }
             }
         }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.whenStarted {
+                viewModel.state.collect {
+                    if (it.currentForecast.isNotEmpty()) {
+                        viewModel.setData(forecast)
+                    }
+                }
+            }
+        }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(),
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
@@ -89,6 +99,6 @@ class WeatherForecastFragment : Fragment(), CurrentLocationListener {
     }
 
     override fun getCurrentWeatherHere(lat: Double, lon: Double, region: String) {
-        viewModel.setData(lat, lon, forecast)
+        viewModel.getWeatherForecast(lat, lon)
     }
 }

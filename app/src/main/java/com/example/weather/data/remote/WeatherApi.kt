@@ -21,4 +21,5 @@ interface WeatherApi {
         @Query("appid") apiKey: String = "46fda51683a3924641702af5d926ca08",
         @Query("units") units: String = "metric",
     ): CurrentWeather
+
 }

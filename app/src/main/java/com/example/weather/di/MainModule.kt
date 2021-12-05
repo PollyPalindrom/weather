@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.weather.common.ConnectionManager
 import com.example.weather.common.CurrentLocationManager
+import com.example.weather.data.remote.BoredApi
 import com.example.weather.database.AppDatabase
 import com.example.weather.database.DatabaseDataSource
 import com.example.weather.data.remote.data_source.NetworkDataSource
@@ -47,6 +48,15 @@ class MainModule {
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .addConverterFactory(GsonConverterFactory.create())
             .build().create(WeatherApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBoredApi(): BoredApi {
+        return Retrofit.Builder()
+            .baseUrl("https://www.boredapi.com/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build().create(BoredApi::class.java)
     }
 
     @Provides

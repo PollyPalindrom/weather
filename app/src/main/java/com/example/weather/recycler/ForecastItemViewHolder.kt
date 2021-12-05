@@ -5,6 +5,7 @@ import androidx.viewbinding.ViewBinding
 import com.example.weather.R
 import com.example.weather.databinding.DateItemBinding
 import com.example.weather.databinding.ForecastItemBinding
+import kotlin.math.roundToInt
 
 sealed class ForecastItemViewHolder(
     private val binding: ViewBinding
@@ -20,7 +21,7 @@ sealed class ForecastItemViewHolder(
         ForecastItemViewHolder(binding) {
         fun bind(weather: RecyclerItem.Forecast) {
             binding.apply {
-                temperature.text = weather.temperature.toString()
+                temperature.text = weather.temperature.roundToInt().toString() + "°"
                 weather.dt_txt.forEachIndexed { index, c ->
                     if (c == ' ') {
                         time.text = weather.dt_txt.substring(index + 1, index + 6)

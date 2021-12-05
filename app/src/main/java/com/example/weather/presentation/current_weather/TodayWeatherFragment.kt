@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.CancellationTokenSource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 
 @AndroidEntryPoint
@@ -82,7 +83,8 @@ class TodayWeatherFragment : Fragment(), CurrentLocationListener {
                         binding.pressureValue.text = it[0].pressure
                         binding.windValue.text = it[0].speed
                         binding.region.text = it[0].region
-                        binding.temperatureValue.text = it[0].temperature
+                        binding.temperatureValue.text =
+                            it[0].temperature.toDouble().roundToInt().toString() + "°"
                         weather = it[0]
                         println(it.size)
                     }
@@ -119,9 +121,7 @@ class TodayWeatherFragment : Fragment(), CurrentLocationListener {
     }
 
     override fun getCurrentWeatherHere(lat: Double, lon: Double, region: String) {
-        println("OOOOOkay")
-        println(region + "!!!!!!!!!!!!!!!!!")
-        viewModel.getCurrentWeather(lat, lon, region, weather)
+        viewModel.getCurrentWeather(lat, lon, region)
     }
 
     private fun getLocation() {

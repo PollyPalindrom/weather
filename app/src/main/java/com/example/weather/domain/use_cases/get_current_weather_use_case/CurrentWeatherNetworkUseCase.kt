@@ -15,9 +15,7 @@ class CurrentWeatherNetworkUseCase @Inject constructor(private val repository: R
     operator fun invoke(lat: String, lon: String): Flow<Resource<CurrentWeather>> = flow {
         try {
             emit(Resource.Loading())
-            println("(((((((((((((((")
             val weather = repository.getCurrentWeather(lat, lon)
-            println("(((((((((((((((")
             emit(Resource.Success(weather))
         } catch (e: HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "An unexpected error occured"))

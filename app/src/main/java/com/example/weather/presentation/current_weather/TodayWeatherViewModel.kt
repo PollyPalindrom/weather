@@ -36,31 +36,28 @@ class TodayWeatherViewModel @Inject constructor(
     fun getCurrentWeather(
         lat: Double,
         lon: Double,
-        region: String,
-        weather: LastWeatherInfo?
+        region: String
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            currentWeatherNetworkUseCase.invoke(lat.toString(), lon.toString()).onEach { result ->
-                when (result) {
-                    is Resource.Success -> {
-                        state.value = CurrentWeatherState(
-                            LastWeatherInfo(
-                                region,
-                                result.data?.wind?.speed.toString(),
-                                result.data?.main?.humidity.toString(),
-                                result.data?.main?.pressure.toString(),
-                                result.data?.main?.temp.toString()
-                            )
+        currentWeatherNetworkUseCase.invoke(lat.toString(), lon.toString()).onEach { result ->
+            when (result) {
+                is Resource.Success -> {
+                    state.value = CurrentWeatherState(
+                        LastWeatherInfo(
+                            region,
+                            result.data?.wind?.speed.toString(),
+                            result.data?.main?.humidity.toString(),
+                            result.data?.main?.pressure.toString(),
+                            result.data?.main?.temp.toString()
                         )
-                    }
-                    is Resource.Error -> {
-                        state.value = CurrentWeatherState(
-                            error = result.message ?: "An unexpected error occurred"
-                        )
-                    }
+                    )
                 }
-            }.launchIn(viewModelScope)
-        }
+                is Resource.Error -> {
+                    state.value = CurrentWeatherState(
+                        error = result.message ?: "An unexpected error occurred"
+                    )
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
     private fun getStoredWeather(): Flow<MutableList<LastWeatherInfo>> {
