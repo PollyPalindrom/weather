@@ -11,4 +11,6 @@
     <string name="_3">3</string>
     <string name="settings">settings</string>
     <string name="notification_channel_description">Send activity</string>
+    <string name="country_city">Country,City</string>
+    <string name="value">value</string>
 </resources>

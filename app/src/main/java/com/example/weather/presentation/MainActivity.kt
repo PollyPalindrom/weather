@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.example.weather.R
 import com.example.weather.databinding.MainActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,8 +51,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainActivityBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
+        val theme = PreferenceManager.getDefaultSharedPreferences(this)
+            .getBoolean(PREF_2, true)
+        if (theme) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            setTheme(R.style.DarkTheme)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            setTheme(R.style.AppTheme)
+        }
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -64,6 +73,11 @@ class MainActivity : AppCompatActivity() {
             binding.menu.setupWithNavController(findNavController(R.id.my_host_activity))
         }
 
+    }
+
+    companion object {
+        private const val PREF_1 = "switch_preference_1"
+        private const val PREF_2 = "switch_preference_2"
     }
 
 }

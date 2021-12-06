@@ -124,6 +124,8 @@ class TodayWeatherFragment : Fragment(), CurrentLocationListener {
         viewModel.getCurrentWeather(lat, lon, region)
     }
 
+    override fun noGpsConnection() {}
+
     private fun getLocation() {
         viewModel.getLocation(this)
     }

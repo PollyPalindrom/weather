@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class CurrentLocationManager @Inject constructor(@ApplicationContext private val context: Context) {
     @SuppressLint("MissingPermission")
-    fun getLocation(listener: CurrentLocationListener) {
+    fun getLocation(listener: CurrentLocationListener, background: Boolean = false) {
         val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && lm.isProviderEnabled(
                 LocationManager.NETWORK_PROVIDER
@@ -25,14 +25,14 @@ class CurrentLocationManager @Inject constructor(@ApplicationContext private val
                 CancellationTokenSource().token
             ).addOnSuccessListener {
                 getAddress(it.latitude, it.longitude, listener)
-                println("Yup")
             }
         else {
-            Toast.makeText(
+            if (!background) Toast.makeText(
                 context,
                 "There is no gps connection",
                 Toast.LENGTH_LONG
             ).show()
+            listener.noGpsConnection()
         }
     }
 
@@ -40,7 +40,6 @@ class CurrentLocationManager @Inject constructor(@ApplicationContext private val
     private fun getAddress(lat: Double, lon: Double, listener: CurrentLocationListener) {
         val geocoder = Geocoder(context)
         val list = geocoder.getFromLocation(lat, lon, 1)
-        println(list[0].locality + ", " + list[0].countryName)
         listener.getCurrentWeatherHere(lat, lon, list[0].locality + ", " + list[0].countryName)
     }
 }

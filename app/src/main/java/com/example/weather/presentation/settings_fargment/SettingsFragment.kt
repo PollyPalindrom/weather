@@ -24,7 +24,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onViewCreated(view, savedInstanceState)
 
         val switch1: SwitchPreference? =
-            findPreference("switch_preference_1") as SwitchPreference?
+            findPreference(PREF_1) as SwitchPreference?
         switch1?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue as Boolean) {
                 setAlarm()
@@ -40,7 +40,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         val switch2: SwitchPreference? =
-            findPreference("switch_preference_2") as SwitchPreference?
+            findPreference(PREF_2) as SwitchPreference?
         switch2?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue as Boolean) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -61,11 +61,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preference_fragment)
-    }
-
-    companion object {
-        private const val PREF_1 = "PREF_1"
-        private const val PREF_2 = "PREF_2"
     }
 
     private fun cancelAlarm() {
@@ -95,5 +90,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
             pendingIntent
         )
 
+    }
+
+    companion object {
+        private const val PREF_1 = "switch_preference_1"
+        private const val PREF_2 = "switch_preference_2"
     }
 }
