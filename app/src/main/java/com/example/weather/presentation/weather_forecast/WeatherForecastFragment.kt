@@ -1,8 +1,6 @@
 package com.example.weather.presentation.weather_forecast
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Bundle
@@ -16,15 +14,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.weather.common.CurrentLocationManager
 import com.example.weather.common.ForecastParser
 import com.example.weather.database.DBForecast
 import com.example.weather.databinding.WeatherForecastFragmentBinding
 import com.example.weather.presentation.current_weather.CurrentLocationListener
 import com.example.weather.recycler.ForecastAdapter
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.CancellationTokenSource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -61,7 +55,7 @@ class WeatherForecastFragment : Fragment(), CurrentLocationListener {
                     Toast.makeText(
                         requireContext(),
                         "There is no internet connection",
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
             })

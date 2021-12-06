@@ -1,9 +1,6 @@
 package com.example.weather.presentation.current_weather
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.location.Geocoder
-import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Bundle
@@ -19,9 +16,6 @@ import androidx.lifecycle.whenStarted
 import com.example.weather.WeatherEvent
 import com.example.weather.database.LastWeatherInfo
 import com.example.weather.databinding.TodayWeatherFragmentBinding
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.CancellationTokenSource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -58,7 +52,7 @@ class TodayWeatherFragment : Fragment(), CurrentLocationListener {
                     Toast.makeText(
                         requireContext(),
                         "There is no internet connection",
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
             })
@@ -69,7 +63,7 @@ class TodayWeatherFragment : Fragment(), CurrentLocationListener {
                         Toast.makeText(
                             requireContext(),
                             "There is no internet connection",
-                            Toast.LENGTH_LONG
+                            Toast.LENGTH_SHORT
                         ).show()
                     } else getLocation()
                 }

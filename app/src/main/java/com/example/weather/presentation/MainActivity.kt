@@ -31,19 +31,15 @@ import kotlin.time.milliseconds
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
-    private var activityResultLauncher: ActivityResultLauncher<String>
-
-    init {
-        this.activityResultLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted ->
-            if (isGranted) {
-                findNavController(R.id.my_host_activity).navigate(R.id.todayWeatherFragment)
-                binding.menu.setupWithNavController(findNavController(R.id.my_host_activity))
-            } else {
-                findNavController(R.id.my_host_activity).navigate(R.id.errorFragment)
-                Toast.makeText(this, "Can't get location without gps", Toast.LENGTH_SHORT).show()
-            }
+    private var activityResultLauncher: ActivityResultLauncher<String> = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            findNavController(R.id.my_host_activity).navigate(R.id.todayWeatherFragment)
+            binding.menu.setupWithNavController(findNavController(R.id.my_host_activity))
+        } else {
+            findNavController(R.id.my_host_activity).navigate(R.id.errorFragment)
+            Toast.makeText(this, "Can't get location without gps", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -69,14 +65,12 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.my_host_activity).navigate(R.id.entryFragment)
             activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         } else {
-//
             binding.menu.setupWithNavController(findNavController(R.id.my_host_activity))
         }
 
     }
 
     companion object {
-        private const val PREF_1 = "switch_preference_1"
         private const val PREF_2 = "switch_preference_2"
     }
 

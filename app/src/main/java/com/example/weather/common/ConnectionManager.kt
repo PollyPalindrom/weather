@@ -5,16 +5,12 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 class ConnectionManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-    val connectivityManager =
+    private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     fun checkForInternet(): Boolean {

@@ -1,24 +1,19 @@
 package com.example.weather.presentation.settings_fargment
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.example.weather.R
-import com.example.weather.presentation.NotificationReceiver
-import java.util.*
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
+
+    private val viewModel by viewModels<SettingsViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,12 +22,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findPreference(PREF_1) as SwitchPreference?
         switch1?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue as Boolean) {
-                setAlarm()
+                viewModel.setAlarm()
                 Toast.makeText(requireContext(), "Notifications are on now", Toast.LENGTH_SHORT)
                     .show()
-                println("Yup!!!!!!")
             } else {
-                cancelAlarm()
+                viewModel.cancelAlarm()
                 Toast.makeText(requireContext(), "Notifications are off now", Toast.LENGTH_SHORT)
                     .show()
             }
@@ -42,13 +36,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val switch2: SwitchPreference? =
             findPreference(PREF_2) as SwitchPreference?
         switch2?.setOnPreferenceChangeListener { _, newValue ->
-            if (newValue as Boolean) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                requireActivity().setTheme(R.style.DarkTheme)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                requireActivity().setTheme(R.style.AppTheme)
-            }
+            viewModel.changeTheme(newValue as Boolean)
             true
         }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(),
@@ -61,35 +49,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         addPreferencesFromResource(R.xml.preference_fragment)
-    }
-
-    private fun cancelAlarm() {
-        val alarmManager =
-            requireContext().getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(requireContext(), NotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, 0)
-        alarmManager.cancel(pendingIntent)
-    }
-
-    private fun setAlarm() {
-        val calendar = Calendar.getInstance()
-        calendar.apply {
-            set(Calendar.HOUR_OF_DAY, 12)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }
-        val alarmManager =
-            requireContext().getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(requireContext(), NotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(requireContext(), 0, intent, 0)
-        alarmManager.setInexactRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            pendingIntent
-        )
-
     }
 
     companion object {

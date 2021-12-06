@@ -30,7 +30,7 @@ class CurrentLocationManager @Inject constructor(@ApplicationContext private val
             if (!background) Toast.makeText(
                 context,
                 "There is no gps connection",
-                Toast.LENGTH_LONG
+                Toast.LENGTH_SHORT
             ).show()
             listener.noGpsConnection()
         }
