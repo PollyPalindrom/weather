@@ -8,8 +8,8 @@ import com.example.weather.data.remote.BoredApi
 import com.example.weather.data.remote.WeatherApi
 import com.example.weather.data.remote.data_source.NetworkDataSource
 import com.example.weather.data.repository.Repository
-import com.example.weather.database.AppDatabase
-import com.example.weather.database.DatabaseDataSource
+import com.example.weather.data.database.AppDatabase
+import com.example.weather.data.database.DatabaseDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

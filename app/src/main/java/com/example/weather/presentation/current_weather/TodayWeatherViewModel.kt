@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weather.WeatherEvent
 import com.example.weather.common.Resource
-import com.example.weather.database.LastWeatherInfo
+import com.example.weather.data.database.LastWeatherInfo
 import com.example.weather.domain.use_cases.get_current_weather_use_case.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -60,14 +60,13 @@ class TodayWeatherViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    private fun getStoredWeather(): Flow<MutableList<LastWeatherInfo>> {
+    fun getStoredWeather(): Flow<MutableList<LastWeatherInfo>> {
         return getAllFlowCurrentWeatherDatabaseUseCase.getAll()
     }
 
     fun onEvent(event: WeatherEvent) {
         when (event) {
             is WeatherEvent.Share -> {
-                println("Start share")
                 createIntent()
             }
         }
@@ -111,13 +110,12 @@ class TodayWeatherViewModel @Inject constructor(
         getLocationCurrentWeatherUseCase.getLocation(listener)
     }
 
-    private fun createTextForShare(): String {
+    fun createTextForShare(): String {
         return "Place: " + weatherShare?.region + ";\n Temperature: " + weatherShare?.temperature
     }
 
-    private fun createIntent() {
+    fun createIntent() {
         val text = createTextForShare()
-        println("The text is: " + text)
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(

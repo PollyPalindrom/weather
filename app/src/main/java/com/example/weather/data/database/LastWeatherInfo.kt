@@ -1,4 +1,4 @@
-package com.example.weather.database
+package com.example.weather.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -4,12 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weather.common.ForecastParser
 import com.example.weather.common.Resource
-import com.example.weather.database.DBForecast
+import com.example.weather.data.database.DBForecast
 import com.example.weather.domain.use_cases.get_current_weather_use_case.CheckConnectionUseCase
 import com.example.weather.domain.use_cases.get_weather_forecast_use_case.*
 import com.example.weather.presentation.current_weather.CurrentLocationListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

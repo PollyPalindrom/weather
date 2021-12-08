@@ -1,4 +1,4 @@
-package com.example.weather.database
+package com.example.weather.data.database
 
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/weather/app/src/main/res/drawable/ic_launcher_background.xml" value="0.14635416666666667" />
         <entry key="..\:/weather/app/src/main/res/layout-land/today_weather_fragment.xml" value="0.4" />
         <entry key="..\:/weather/app/src/main/res/layout/date_item.xml" value="0.1814814814814815" />
         <entry key="..\:/weather/app/src/main/res/layout/forecast_item.xml" value="0.176" />
@@ -18,6 +19,7 @@
         <entry key="..\:/weather/app/src/main/res/menu/bottom_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/weather/app/src/main/res/menu/drawer_menu.xml" value="0.13020833333333334" />
         <entry key="..\:/weather/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/weather/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.14635416666666667" />
         <entry key="..\:/weather/app/src/main/res/xml/preference_fragment.xml" value="0.25416666666666665" />
       </map>
     </option>

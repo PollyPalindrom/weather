@@ -1,4 +1,4 @@
-package com.example.weather.recycler
+package com.example.weather.presentation.recycler
 
 sealed class RecyclerItem {
     data class Day(

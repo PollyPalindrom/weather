@@ -3,11 +3,9 @@
 
     <item
         android:id="@+id/id1"
-        android:icon="@mipmap/ic_launcher_round"
         android:title="@string/_1" />
     <item
         android:id="@+id/id2"
-        android:icon="@mipmap/ic_launcher_round"
         android:title="@string/_2" />
     <item
         android:id="@+id/id3"

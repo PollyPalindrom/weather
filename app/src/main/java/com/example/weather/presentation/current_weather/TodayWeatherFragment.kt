@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
 import com.example.weather.WeatherEvent
-import com.example.weather.database.LastWeatherInfo
+import com.example.weather.data.database.LastWeatherInfo
 import com.example.weather.databinding.TodayWeatherFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect

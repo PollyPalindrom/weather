@@ -1,8 +1,8 @@
 package com.example.weather.common
 
 import com.example.weather.data.remote.forecast_entity.Forecast
-import com.example.weather.database.DBForecast
-import com.example.weather.recycler.RecyclerItem
+import com.example.weather.data.database.DBForecast
+import com.example.weather.presentation.recycler.RecyclerItem
 
 class ForecastParser {
     fun formRecyclerItem(list: List<DBForecast>): MutableList<RecyclerItem> {

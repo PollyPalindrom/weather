@@ -15,10 +15,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weather.common.ForecastParser
-import com.example.weather.database.DBForecast
+import com.example.weather.data.database.DBForecast
 import com.example.weather.databinding.WeatherForecastFragmentBinding
 import com.example.weather.presentation.current_weather.CurrentLocationListener
-import com.example.weather.recycler.ForecastAdapter
+import com.example.weather.presentation.recycler.ForecastAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

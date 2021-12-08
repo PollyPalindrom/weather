@@ -1,4 +1,4 @@
-package com.example.weather.recycler
+package com.example.weather.presentation.recycler
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding

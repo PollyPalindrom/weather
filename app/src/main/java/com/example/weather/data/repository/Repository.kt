@@ -3,9 +3,9 @@ package com.example.weather.data.repository
 import com.example.weather.common.ConnectionManager
 import com.example.weather.common.CurrentLocationManager
 import com.example.weather.data.remote.forecast_entity.FullForecast
-import com.example.weather.database.DBForecast
-import com.example.weather.database.DatabaseDataSource
-import com.example.weather.database.LastWeatherInfo
+import com.example.weather.data.database.DBForecast
+import com.example.weather.data.database.DatabaseDataSource
+import com.example.weather.data.database.LastWeatherInfo
 import com.example.weather.data.remote.data_source.NetworkDataSource
 import com.example.weather.data.remote.today_entity.CurrentWeather
 import com.example.weather.presentation.current_weather.CurrentLocationListener

@@ -50,7 +50,7 @@ class NotificationReceiver :
             if (connectionManager.checkForInternet()) {
                 val weather = weatherApi.getCurrentWeather(lat.toString(), lon.toString())
                 val activity = boredApi.getActivity()
-                createNotification("Temperature:" + weather.main.temp + "°" + "\nMay be it is a good day to:" + activity.activity)
+                createNotification("Temperature:" + weather.main.temp + "°" + "\nMaybe it is a good day to:" + activity.activity)
             }
         }
     }
