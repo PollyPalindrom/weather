@@ -1,6 +1,8 @@
 package com.example.weather.presentation.current_weather
 
 import android.content.Context
+import android.location.Location
+import android.location.LocationListener
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Bundle

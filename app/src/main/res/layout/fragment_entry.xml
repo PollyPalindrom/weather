@@ -8,6 +8,5 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:src="@drawable/ic_baseline_brightness_7_24"
-    android:contentDescription="@string/entry_screen_image" />
+    android:src="@drawable/ic_baseline_brightness_7_24" />
 </FrameLayout>

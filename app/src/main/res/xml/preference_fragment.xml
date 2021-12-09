@@ -6,7 +6,7 @@
         android:key="switch_preference_1"
         android:title="Notifications" />
     <SwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="switch_preference_2"
         android:title="Dark theme" />
 </PreferenceScreen>

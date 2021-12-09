@@ -10,6 +10,7 @@
         android:name="com.example.weather.presentation.entry_fragment.EntryFragment"
         android:label="fragment_entry"
         tools:layout="@layout/fragment_entry" />
+
     <fragment
         android:id="@+id/errorFragment"
         android:name="com.example.weather.presentation.error_fragment.ErrorFragment"
@@ -20,6 +21,7 @@
             app:popUpTo="@id/navigation"
             app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.weather.presentation.settings_fargment.SettingsFragment"
@@ -30,6 +32,7 @@
             app:popUpTo="@id/entryFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/todayWeatherFragment"
         android:name="com.example.weather.presentation.current_weather.TodayWeatherFragment"
@@ -41,6 +44,7 @@
             app:popUpToInclusive="true"
             />
     </fragment>
+
     <fragment
         android:id="@+id/weatherForecastFragment"
         android:name="com.example.weather.presentation.weather_forecast.WeatherForecastFragment"
