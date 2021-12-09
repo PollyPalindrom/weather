@@ -11,6 +11,13 @@
     <string name="_3">3</string>
     <string name="settings">settings</string>
     <string name="notification_channel_description">Send activity</string>
+    <string name="_01_01_2000">01.01.2000</string>
+    <string name="time">time</string>
+    <string name="desc">desc</string>
+    <string name="_0">0</string>
+    <string name="entry_screen_image">Entry screen image</string>
     <string name="country_city">Country,City</string>
+    <string name="delimiter">-------------------------------------</string>
     <string name="value">value</string>
+    <string name="share">Share</string>
 </resources>

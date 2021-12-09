@@ -21,16 +21,6 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.weather.presentation.settings_fargment.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings">
-        <action
-            android:id="@+id/action_settingsFragment_pop_including_entryFragment"
-            app:popUpTo="@id/entryFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
         android:id="@+id/todayWeatherFragment"
         android:name="com.example.weather.presentation.current_weather.TodayWeatherFragment"
         android:label="today_weather_fragment"
