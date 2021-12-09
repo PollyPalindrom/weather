@@ -2,6 +2,7 @@ package com.example.weather
 
 import com.example.weather.data.database.DBForecast
 import com.example.weather.domain.use_cases.get_current_weather_use_case.CheckConnectionUseCase
+import com.example.weather.domain.use_cases.get_current_weather_use_case.GetAllCurrentWeatherDatabaseUseCase
 import com.example.weather.domain.use_cases.get_weather_forecast_use_case.*
 import com.example.weather.presentation.current_weather.CurrentLocationListener
 import com.example.weather.presentation.weather_forecast.WeatherForecastState
@@ -24,13 +25,15 @@ class WeatherForecastViewModelTest {
     private val updateCurrentWeatherDatabaseUseCase =
         mockk<UpdateCurrentWeatherDatabaseUseCase>(relaxed = true)
     private val checkConnectionUseCase = mockk<CheckConnectionUseCase>(relaxed = true)
+    private val getAllCurrentWeatherDatabaseUseCase = mockk<GetAllCurrentWeatherDatabaseUseCase>(relaxed = true)
     private val viewModel = WeatherForecastViewModel(
         weatherForecastNetworkUseCase,
         getLocationWeatherForecastUseCase,
         getFlowWeatherForecastDatabaseUseCase,
         insertWeatherForecastDatabaseUseCase,
         updateCurrentWeatherDatabaseUseCase,
-        checkConnectionUseCase
+        checkConnectionUseCase,
+        getAllCurrentWeatherDatabaseUseCase
     )
     private val listener = mockk<CurrentLocationListener>()
 
@@ -40,11 +43,6 @@ class WeatherForecastViewModelTest {
         verify { getLocationWeatherForecastUseCase.getLocation(listener) }
     }
 
-    @Test
-    fun checkConnection() {
-        viewModel.check()
-        verify { checkConnectionUseCase.checkConnection() }
-    }
 
     @Test
     fun checkGetWeatherForecast() {

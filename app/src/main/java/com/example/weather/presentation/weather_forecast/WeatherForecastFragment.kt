@@ -80,6 +80,10 @@ class WeatherForecastFragment : Fragment(), CurrentLocationListener {
                 }
             }
         }
+        binding.refresh.setOnRefreshListener {
+            getLocation()
+            binding.refresh.isRefreshing = false
+        }
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(),
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
