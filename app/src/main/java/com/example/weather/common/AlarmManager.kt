@@ -14,7 +14,7 @@ class AlarmManager @Inject constructor(@ApplicationContext private val context: 
     fun setAlarm() {
         val calendar = Calendar.getInstance()
         calendar.apply {
-            set(Calendar.HOUR_OF_DAY, 12)
+            set(Calendar.HOUR_OF_DAY, 18)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)

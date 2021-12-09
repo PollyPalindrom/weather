@@ -73,9 +73,9 @@ class TodayWeatherFragment : Fragment(), CurrentLocationListener {
             viewLifecycleOwner.whenStarted {
                 viewModel.current.collect {
                     if (it.isNotEmpty()) {
-                        binding.humidityValue.text = it[0].humidity
-                        binding.pressureValue.text = it[0].pressure
-                        binding.windValue.text = it[0].speed
+                        binding.humidityValue.text = it[0].humidity + "%"
+                        binding.pressureValue.text = it[0].pressure + "hPa"
+                        binding.windValue.text = it[0].speed + "km/h"
                         binding.region.text = it[0].region
                         binding.temperatureValue.text =
                             it[0].temperature.toDouble().roundToInt().toString() + "°"

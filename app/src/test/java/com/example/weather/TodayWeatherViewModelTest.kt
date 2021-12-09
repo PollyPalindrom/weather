@@ -5,6 +5,7 @@ import com.example.weather.domain.use_cases.get_current_weather_use_case.*
 import com.example.weather.presentation.current_weather.CurrentLocationListener
 import com.example.weather.presentation.current_weather.CurrentWeatherState
 import com.example.weather.presentation.current_weather.TodayWeatherViewModel
+import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.flow.Flow
@@ -74,4 +75,22 @@ class TodayWeatherViewModelTest {
         }
     }
 
+    @Test
+    fun checkUpdateDatabaseNotNull() {
+        val weather = LastWeatherInfo("1", "2", "3", "4", "5")
+        weather.id = 0
+        every { getAllCurrentWeatherDatabaseUseCase.getAllList() } returns listOf(weather)
+        viewModel.state.value = CurrentWeatherState(weather)
+        viewModel.updateDatabase(weather)
+        verify {
+            updateCurrentWeatherDatabaseUseCase.update(
+                weather.region,
+                weather.speed,
+                weather.humidity,
+                weather.pressure,
+                weather.temperature,
+                0
+            )
+        }
+    }
 }
