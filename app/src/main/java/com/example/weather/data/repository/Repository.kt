@@ -50,6 +50,8 @@ class Repository @Inject constructor(
         humidity: String,
         pressure: String,
         temperature: String,
+        lat: String,
+        lon: String,
         id: Int
     ) {
         databaseDataSource.update(
@@ -58,6 +60,8 @@ class Repository @Inject constructor(
             humidity,
             pressure,
             temperature,
+            lat,
+            lon,
             id
         )
     }

@@ -24,7 +24,7 @@ class TodayWeatherViewModel @Inject constructor(
     private val getAllFlowCurrentWeatherDatabaseUseCase: GetAllFlowCurrentWeatherDatabaseUseCase,
     private val insertCurrentWeatherDatabaseUseCase: InsertCurrentWeatherDatabaseUseCase,
     private val updateCurrentWeatherDatabaseUseCase: UpdateCurrentWeatherDatabaseUseCase,
-    private val getLocationCurrentWeatherUseCase: GetLocationCurrentWeatherUseCase
+    private val getLocationCurrentWeatherUseCase: GetLocationCurrentWeatherUseCase,
 ) :
     ViewModel() {
     val state: MutableStateFlow<CurrentWeatherState?> = MutableStateFlow(null)
@@ -47,7 +47,9 @@ class TodayWeatherViewModel @Inject constructor(
                             result.data?.wind?.speed.toString(),
                             result.data?.main?.humidity.toString(),
                             result.data?.main?.pressure.toString(),
-                            result.data?.main?.temp.toString()
+                            result.data?.main?.temp.toString(),
+                            lat.toString(),
+                            lon.toString()
                         )
                     )
                 }
@@ -62,6 +64,19 @@ class TodayWeatherViewModel @Inject constructor(
 
     fun getStoredWeather(): Flow<MutableList<LastWeatherInfo>> {
         return getAllFlowCurrentWeatherDatabaseUseCase.getAll()
+    }
+
+    fun updateWeather() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val weather = getAllCurrentWeatherDatabaseUseCase.getAllList()
+            if (weather.isNotEmpty()) {
+                getCurrentWeather(
+                    weather[0].lat.toDouble(),
+                    weather[0].lon.toDouble(),
+                    weather[0].region
+                )
+            }
+        }
     }
 
     fun onEvent(event: WeatherEvent) {
@@ -95,6 +110,8 @@ class TodayWeatherViewModel @Inject constructor(
                     databaseWeather.humidity,
                     databaseWeather.pressure,
                     databaseWeather.temperature,
+                    databaseWeather.lat,
+                    databaseWeather.lon,
                     databaseWeather.id
                 )
             }

@@ -31,6 +31,8 @@ class DatabaseDataSource @Inject constructor(private val database: AppDatabase) 
         humidity: String,
         pressure: String,
         temperature: String,
+        lat: String,
+        lon: String,
         id: Int
     ) {
         weatherDao.update(
@@ -39,6 +41,8 @@ class DatabaseDataSource @Inject constructor(private val database: AppDatabase) 
             humidity,
             pressure,
             temperature,
+            lat,
+            lon,
             id
         )
     }

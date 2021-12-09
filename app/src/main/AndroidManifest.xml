@@ -27,7 +27,8 @@
         </activity>
         <receiver
             android:name=".presentation.NotificationReceiver"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

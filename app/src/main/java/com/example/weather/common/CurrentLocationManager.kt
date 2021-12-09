@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class CurrentLocationManager @Inject constructor(@ApplicationContext private val context: Context) {
     @SuppressLint("MissingPermission")
-    fun getLocation(listener: CurrentLocationListener, background: Boolean = false) {
+    fun getLocation(listener: CurrentLocationListener) {
         val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER) && lm.isProviderEnabled(
                 LocationManager.NETWORK_PROVIDER
@@ -27,9 +27,9 @@ class CurrentLocationManager @Inject constructor(@ApplicationContext private val
                 getAddress(it.latitude, it.longitude, listener)
             }
         else {
-            if (!background) Toast.makeText(
+            Toast.makeText(
                 context,
-                "There is no gps connection",
+                "There is no gps connection. Current weather in last loaded location will be shown",
                 Toast.LENGTH_SHORT
             ).show()
             listener.noGpsConnection()

@@ -67,7 +67,7 @@ class TodayWeatherViewModelTest {
 
     @Test
     fun checkUpdateDatabaseNull() {
-        val weather = LastWeatherInfo("1", "2", "3", "4", "5")
+        val weather = LastWeatherInfo("1", "2", "3", "4", "5", "6", "7")
         viewModel.state.value = CurrentWeatherState(weather)
         viewModel.updateDatabase(null)
         verify {
@@ -77,7 +77,7 @@ class TodayWeatherViewModelTest {
 
     @Test
     fun checkUpdateDatabaseNotNull() {
-        val weather = LastWeatherInfo("1", "2", "3", "4", "5")
+        val weather = LastWeatherInfo("1", "2", "3", "4", "5", "6", "7")
         weather.id = 0
         every { getAllCurrentWeatherDatabaseUseCase.getAllList() } returns listOf(weather)
         viewModel.state.value = CurrentWeatherState(weather)
@@ -89,6 +89,8 @@ class TodayWeatherViewModelTest {
                 weather.humidity,
                 weather.pressure,
                 weather.temperature,
+                weather.lat,
+                weather.lon,
                 0
             )
         }

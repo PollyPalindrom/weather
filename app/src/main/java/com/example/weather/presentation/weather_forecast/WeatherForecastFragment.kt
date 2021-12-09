@@ -96,5 +96,7 @@ class WeatherForecastFragment : Fragment(), CurrentLocationListener {
         viewModel.getWeatherForecast(lat, lon)
     }
 
-    override fun noGpsConnection() {}
+    override fun noGpsConnection() {
+        viewModel.updateWeather()
+    }
 }

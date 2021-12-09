@@ -80,7 +80,6 @@ class TodayWeatherFragment : Fragment(), CurrentLocationListener {
                         binding.temperatureValue.text =
                             it[0].temperature.toDouble().roundToInt().toString() + "°"
                         weather = it[0]
-                        println(it.size)
                     }
                 }
             }
@@ -118,7 +117,9 @@ class TodayWeatherFragment : Fragment(), CurrentLocationListener {
         viewModel.getCurrentWeather(lat, lon, region)
     }
 
-    override fun noGpsConnection() {}
+    override fun noGpsConnection() {
+        viewModel.updateWeather()
+    }
 
     private fun getLocation() {
         viewModel.getLocation(this)

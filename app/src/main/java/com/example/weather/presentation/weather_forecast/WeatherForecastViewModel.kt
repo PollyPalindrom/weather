@@ -6,6 +6,7 @@ import com.example.weather.common.ForecastParser
 import com.example.weather.common.Resource
 import com.example.weather.data.database.DBForecast
 import com.example.weather.domain.use_cases.get_current_weather_use_case.CheckConnectionUseCase
+import com.example.weather.domain.use_cases.get_current_weather_use_case.GetAllCurrentWeatherDatabaseUseCase
 import com.example.weather.domain.use_cases.get_weather_forecast_use_case.*
 import com.example.weather.presentation.current_weather.CurrentLocationListener
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +26,9 @@ class WeatherForecastViewModel @Inject constructor(
     private val getFlowWeatherForecastDatabaseUseCase: GetFlowWeatherForecastDatabaseUseCase,
     private val insertWeatherForecastDatabaseUseCase: InsertWeatherForecastDatabaseUseCase,
     private val updateCurrentWeatherDatabaseUseCase: UpdateCurrentWeatherDatabaseUseCase,
-    private val checkConnectionUseCase: CheckConnectionUseCase
+    private val checkConnectionUseCase: CheckConnectionUseCase,
+    private val getAllCurrentWeatherDatabaseUseCase: GetAllCurrentWeatherDatabaseUseCase
+
 ) :
     ViewModel() {
 
@@ -78,5 +81,17 @@ class WeatherForecastViewModel @Inject constructor(
 
     fun getLocation(listener: CurrentLocationListener) {
         getLocationWeatherForecastUseCase.getLocation(listener)
+    }
+
+    fun updateWeather() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val weather = getAllCurrentWeatherDatabaseUseCase.getAllList()
+            if (weather.isNotEmpty()) {
+                getWeatherForecast(
+                    weather[0].lat.toDouble(),
+                    weather[0].lon.toDouble()
+                )
+            }
+        }
     }
 }

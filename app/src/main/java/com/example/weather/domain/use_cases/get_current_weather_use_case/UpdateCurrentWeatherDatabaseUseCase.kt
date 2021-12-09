@@ -11,6 +11,8 @@ class UpdateCurrentWeatherDatabaseUseCase @Inject constructor(private val reposi
         humidity: String,
         pressure: String,
         temperature: String,
+        lat: String,
+        lon: String,
         id: Int
     ) {
         repository.update(
@@ -19,6 +21,8 @@ class UpdateCurrentWeatherDatabaseUseCase @Inject constructor(private val reposi
             humidity,
             pressure,
             temperature,
+            lat,
+            lon,
             id
         )
     }
