@@ -23,11 +23,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
         switch1?.setOnPreferenceChangeListener { _, newValue ->
             if (newValue as Boolean) {
                 viewModel.setAlarm()
-                Toast.makeText(requireContext(), "Notifications are on now", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.notification_on),
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             } else {
                 viewModel.cancelAlarm()
-                Toast.makeText(requireContext(), "Notifications are off now", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.notification_off),
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
             true

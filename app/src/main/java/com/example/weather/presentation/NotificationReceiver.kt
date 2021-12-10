@@ -46,7 +46,7 @@ class NotificationReceiver :
             }
         } else {
             if (p0 != null) {
-                createNotification("Have a nice day!", p0)
+                createNotification(p0.getString(R.string.nice_day), p0)
             }
         }
     }

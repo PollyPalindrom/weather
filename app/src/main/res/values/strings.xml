@@ -20,4 +20,10 @@
     <string name="delimiter">-------------------------------------</string>
     <string name="value">value</string>
     <string name="share">Share</string>
+    <string name="gps_off">There is no gps connection. Current weather in last loaded location will be shown. To get current weather in your location turn on gps and swipe to update</string>
+    <string name="internet_off">There is no internet connection</string>
+    <string name="notification_on">Notifications are on now</string>
+    <string name="notification_off">Notifications are off now</string>
+    <string name="no_gps_permission">Can not get location without gps</string>
+    <string name="nice_day">Have a nice day!</string>
 </resources>

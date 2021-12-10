@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             binding.menu.setupWithNavController(findNavController(R.id.my_host_activity))
         } else {
             findNavController(R.id.my_host_activity).navigate(R.id.errorFragment)
-            Toast.makeText(this, "Can't get location without gps", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.no_gps_permission), Toast.LENGTH_SHORT).show()
         }
     }
 

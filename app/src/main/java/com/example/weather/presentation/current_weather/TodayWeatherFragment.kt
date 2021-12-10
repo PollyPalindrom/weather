@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
+import com.example.weather.R
 import com.example.weather.WeatherEvent
 import com.example.weather.data.database.LastWeatherInfo
 import com.example.weather.databinding.TodayWeatherFragmentBinding
@@ -51,7 +52,7 @@ class TodayWeatherFragment : Fragment(), CurrentLocationListener {
                     super.onLost(network)
                     Toast.makeText(
                         requireContext(),
-                        "There is no internet connection",
+                        getString(R.string.internet_off),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -62,7 +63,7 @@ class TodayWeatherFragment : Fragment(), CurrentLocationListener {
                     if (!it) {
                         Toast.makeText(
                             requireContext(),
-                            "There is no internet connection",
+                            getString(R.string.internet_off),
                             Toast.LENGTH_SHORT
                         ).show()
                     } else getLocation()

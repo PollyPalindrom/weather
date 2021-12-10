@@ -24,15 +24,14 @@ class WeatherForecastViewModelTest {
         mockk<InsertWeatherForecastDatabaseUseCase>(relaxed = true)
     private val updateCurrentWeatherDatabaseUseCase =
         mockk<UpdateCurrentWeatherDatabaseUseCase>(relaxed = true)
-    private val checkConnectionUseCase = mockk<CheckConnectionUseCase>(relaxed = true)
-    private val getAllCurrentWeatherDatabaseUseCase = mockk<GetAllCurrentWeatherDatabaseUseCase>(relaxed = true)
+    private val getAllCurrentWeatherDatabaseUseCase =
+        mockk<GetAllCurrentWeatherDatabaseUseCase>(relaxed = true)
     private val viewModel = WeatherForecastViewModel(
         weatherForecastNetworkUseCase,
         getLocationWeatherForecastUseCase,
         getFlowWeatherForecastDatabaseUseCase,
         insertWeatherForecastDatabaseUseCase,
         updateCurrentWeatherDatabaseUseCase,
-        checkConnectionUseCase,
         getAllCurrentWeatherDatabaseUseCase
     )
     private val listener = mockk<CurrentLocationListener>()
@@ -48,6 +47,14 @@ class WeatherForecastViewModelTest {
     fun checkGetWeatherForecast() {
         assertThat(
             weatherForecastNetworkUseCase.invoke("20.0", "20.0"),
+            instanceOf(Flow::class.java)
+        )
+    }
+
+    @Test
+    fun checkGetWeatherForecastFlow() {
+        assertThat(
+            getFlowWeatherForecastDatabaseUseCase.getForecast(),
             instanceOf(Flow::class.java)
         )
     }

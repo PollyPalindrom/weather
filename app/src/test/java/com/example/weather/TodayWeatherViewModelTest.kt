@@ -11,6 +11,7 @@ import io.mockk.verify
 import kotlinx.coroutines.flow.Flow
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
+import org.junit.Before
 import org.junit.Test
 
 class TodayWeatherViewModelTest {
@@ -26,6 +27,7 @@ class TodayWeatherViewModelTest {
         mockk<UpdateCurrentWeatherDatabaseUseCase>(relaxed = true)
     private val getLocationCurrentWeatherUseCase =
         mockk<GetLocationCurrentWeatherUseCase>(relaxed = true)
+    private val weather = LastWeatherInfo("1", "2", "3", "4", "5", "6", "7")
     private val viewModel = TodayWeatherViewModel(
         currentWeatherNetworkUseCase,
         checkConnectionUseCase,
@@ -36,6 +38,11 @@ class TodayWeatherViewModelTest {
         getLocationCurrentWeatherUseCase
     )
     private val listener = mockk<CurrentLocationListener>()
+
+    @Before
+    fun set() {
+        every { getAllCurrentWeatherDatabaseUseCase.getAllList() } returns listOf(weather,weather)
+    }
 
     @Test
     fun checkGetLocation() {
@@ -67,7 +74,6 @@ class TodayWeatherViewModelTest {
 
     @Test
     fun checkUpdateDatabaseNull() {
-        val weather = LastWeatherInfo("1", "2", "3", "4", "5", "6", "7")
         viewModel.state.value = CurrentWeatherState(weather)
         viewModel.updateDatabase(null)
         verify {
@@ -77,9 +83,6 @@ class TodayWeatherViewModelTest {
 
     @Test
     fun checkUpdateDatabaseNotNull() {
-        val weather = LastWeatherInfo("1", "2", "3", "4", "5", "6", "7")
-        weather.id = 0
-        every { getAllCurrentWeatherDatabaseUseCase.getAllList() } returns listOf(weather)
         viewModel.state.value = CurrentWeatherState(weather)
         viewModel.updateDatabase(weather)
         verify {
@@ -91,7 +94,7 @@ class TodayWeatherViewModelTest {
                 weather.temperature,
                 weather.lat,
                 weather.lon,
-                0
+                weather.id
             )
         }
     }

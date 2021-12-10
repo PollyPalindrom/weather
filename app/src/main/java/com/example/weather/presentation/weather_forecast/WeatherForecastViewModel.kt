@@ -26,14 +26,12 @@ class WeatherForecastViewModel @Inject constructor(
     private val getFlowWeatherForecastDatabaseUseCase: GetFlowWeatherForecastDatabaseUseCase,
     private val insertWeatherForecastDatabaseUseCase: InsertWeatherForecastDatabaseUseCase,
     private val updateCurrentWeatherDatabaseUseCase: UpdateCurrentWeatherDatabaseUseCase,
-    private val checkConnectionUseCase: CheckConnectionUseCase,
     private val getAllCurrentWeatherDatabaseUseCase: GetAllCurrentWeatherDatabaseUseCase
 
 ) :
     ViewModel() {
 
     var currentForecast = getFlowWeatherForecastDatabaseUseCase.getForecast()
-    private val connection = MutableStateFlow(false)
     val state: MutableStateFlow<WeatherForecastState> = MutableStateFlow(WeatherForecastState())
 
     fun getWeatherForecast(
@@ -73,10 +71,6 @@ class WeatherForecastViewModel @Inject constructor(
                 )
             }
         }
-    }
-
-    fun check() {
-        connection.value = checkConnectionUseCase.checkConnection()
     }
 
     fun getLocation(listener: CurrentLocationListener) {

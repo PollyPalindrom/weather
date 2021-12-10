@@ -5,6 +5,7 @@ import android.content.Context
 import android.location.Geocoder
 import android.location.LocationManager
 import android.widget.Toast
+import com.example.weather.R
 import com.example.weather.presentation.current_weather.CurrentLocationListener
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -29,7 +30,7 @@ class CurrentLocationManager @Inject constructor(@ApplicationContext private val
         else {
             Toast.makeText(
                 context,
-                "There is no gps connection. Current weather in last loaded location will be shown",
+                context.getString(R.string.gps_off),
                 Toast.LENGTH_SHORT
             ).show()
             listener.noGpsConnection()
