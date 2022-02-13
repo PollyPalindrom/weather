@@ -35,7 +35,7 @@ class WeatherForecastFragment : Fragment(), CurrentLocationListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = WeatherForecastFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -51,6 +51,7 @@ class WeatherForecastFragment : Fragment(), CurrentLocationListener {
             viewModel.currentForecast.collect {
                 if (it.isNotEmpty()) {
                     forecastAdapter.submitList(forecastParser.formRecyclerItem(it))
+                    binding.recycler.scrollToPosition(0)
                     forecast = it
                 }
             }
